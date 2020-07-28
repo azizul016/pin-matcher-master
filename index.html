@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body>
+<body id="reloadPage">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
@@ -44,11 +44,11 @@
                             <div class="calc-button-row">
                                 <div class="button" onclick="backspaceBtn()"><</div>
                                 <div class="button" onclick="document.calc.display.value += 0">0</div>
-                                <div class="button" onclick="document.calc.display.value = ''">C</div>
+                                <div id="allClear" class="button" onclick="document.calc.display.value = ''">C</div>
                             </div>
                             <div>
                                 <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
-                                <p id="displayBlock" class="action-left"><span id="decreaseNum">3 </span> try left</p>
+                                <p id="displayBlock" class="action-left"><span id="decreaseNum">3 </span>try left</p>
                                 <p class="my-2" id="finishTry">No try left</p>
                             </div>
                         </div>
@@ -62,46 +62,60 @@
         </div>
     </div>
 
-    <script>
-        function backspaceBtn(){
-            calc.display.value = calc.display.value.slice(0, calc.display.value.length - 1);
-        }
-        document.getElementById("submitBtn").addEventListener("click", function(){
-            // let inputValue = document.getElementById("inputValue");
-            // let inputNumber = parseInt(inputValue.value);
-            // let displayBtn = document.getElementById("displayBtn");
-            // let displayNumber = parseInt(displayBtn.value);
-            if(document.getElementById("inputValue").value == document.getElementById("displayBtn").value){
-              document.getElementById("submitSuccessful").style.display = "block";
-            }
-            else{
-                document.getElementById("failed").style.display = "block";
-            }
-            if(decreaseNum.innerText > 0){
-                let decreaseNum = document.getElementById("decreaseNum").innerText;
-                // console.log(decreaseNum);
-                let newDecreaseNum = decreaseNum - 1;
-                // console.log(newDecreaseNum)
-                document.getElementById("decreaseNum").innerText =newDecreaseNum + " ";
-            }
-            else{
-                document.getElementById("displayBlock").style.display = "none";
-                document.getElementById("finishTry").style.display = "block";
-            }
-
-        })
    
+<script>
+    //backspace function.
+    function backspaceBtn(){
+        calc.display.value = calc.display.value.slice(0, calc.display.value.length - 1);
+    }
+    //all clear function.
+    document.getElementById("allClear").addEventListener("click", function(){
+        document.getElementById("failed").style.display = "none";
+        document.getElementById("submitSuccessful").style.display = "none";
+        document.getElementById("finishTry").style.display = "none";
+        // document.getElementById("displayBlock").style.display = "block";
 
+    })
+    //random function generator function
+    document.getElementById("generateBtn").addEventListener("click", function () {
+        var generatePin = Math.floor(1000 + Math.random() * 9000);
+        document.getElementById("inputValue").value = generatePin;
+        document.getElementById("inputValue").style.color = "black";
+    })
+    //main part start
+    document.getElementById("submitBtn").addEventListener("click", function(){
 
+        if(document.getElementById("inputValue").value == document.getElementById("displayBtn").value){
+           
+            document.getElementById("submitSuccessful").style.display = "block";
+            document.getElementById("displayBlock").style.display = "none";
 
-        document.getElementById("generateBtn").addEventListener("click", function () {
-            var generatePin = Math.floor(1000 + Math.random() * 9000);
-            document.getElementById("inputValue").value = generatePin;
-            document.getElementById("inputValue").style.color = "black";
-        })
+        }
+        else if(document.getElementById("inputValue").value != document.getElementById("displayBtn").value){
 
-    </script>
+            document.getElementById("submitSuccessful").style.display = "none";
+            document.getElementById("failed").style.display = "block";
+            document.getElementById("displayBlock").style.display = "block";
+            if(decreaseNum.innerText > 0){
+                let decreaseNum =parseInt( document.getElementById("decreaseNum").innerText);
+                let newDecreaseNum = decreaseNum - 1;
+                document.getElementById("decreaseNum").innerText =newDecreaseNum + " ";
+                // document.getElementById("displayBlock").style.display = "block";
+            }
+            else{
+                    document.getElementById("displayBlock").style.display = "none";
+                    document.getElementById("finishTry").style.display = "block";
+            }
+        }
+
+    })
+
+</script>
 
 </body>
 
 </html>
+
+
+
+
