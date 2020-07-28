@@ -48,7 +48,8 @@
                             </div>
                             <div>
                                 <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
-                                <p class="action-left">3 try left</p>
+                                <p id="displayBlock" class="action-left"><span id="decreaseNum">3 </span> try left</p>
+                                <p class="my-2" id="finishTry">No try left</p>
                             </div>
                         </div>
                     </div>
@@ -76,6 +77,18 @@
             else{
                 document.getElementById("failed").style.display = "block";
             }
+            if(decreaseNum.innerText > 0){
+                let decreaseNum = document.getElementById("decreaseNum").innerText;
+                // console.log(decreaseNum);
+                let newDecreaseNum = decreaseNum - 1;
+                // console.log(newDecreaseNum)
+                document.getElementById("decreaseNum").innerText =newDecreaseNum + " ";
+            }
+            else{
+                document.getElementById("displayBlock").style.display = "none";
+                document.getElementById("finishTry").style.display = "block";
+            }
+
         })
    
 
