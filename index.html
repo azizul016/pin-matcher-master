@@ -48,8 +48,8 @@
                             </div>
                             <div>
                                 <button id="submitBtn" type="submit" class="submit-btn">Submit</button>
-                                <p id="tryingNumberCount" class="action-left"><span id="decreaseNum">3 </span>try left</p>
-                                <p class="my-2" id="finishTry">No try left</p>
+                                <p id="failedCounting" class="action-left"><span id="decreaseNum">3 </span>try left</p>
+                                <p class="my-2" id="finishedTrying">No try left</p>
                             </div>
                         </div>
                     </div>
@@ -64,10 +64,26 @@
 
    
 <script>
+
+    //globally declare
+    let generateNumber = document.getElementById("generateNumber");
+    let inputNumber = document.getElementById("inputNumber");
+    let submitSuccessful = document.getElementById("submitSuccessful");
+    let failedCounting = document.getElementById("failedCounting");
+    let finishedTrying = document.getElementById("finishedTrying");
+    let submitFailed = document.getElementById("submitFailed");
+
+    //common function uses
+    function pinText(){
+        submitSuccessful.style.display = "none";
+        submitFailed.style.display = "none";
+    }
+
     //inputNumber part start
     function setNumber(id){
         document.getElementById(id).addEventListener("click", function(){
-            document.getElementById("inputNumber").value += document.getElementById(id).innerText;
+            inputNumber.value += document.getElementById(id).innerText;
+            pinText();
             
         })
     }
@@ -85,19 +101,15 @@
     //backspace function
     function backspaceBtn(){
         calc.display.value = calc.display.value.slice(0, calc.display.value.length - 1);
+        pinText();
     }
 
+ 
     //all clear function
     document.getElementById("allClear").addEventListener("click", function(){
-        document.getElementById("submitFailed").style.display = "none";
-        document.getElementById("submitSuccessful").style.display = "none";
-        document.getElementById("finishTry").style.display = "none";
-
+        finishedTrying.style.display = "none";
+        pinText();
     })
-
-    //globally declare
-    let generateNumber = document.getElementById("generateNumber");
-    let inputNumber = document.getElementById("inputNumber");
 
 
     //random function generator function
@@ -105,6 +117,7 @@
         var generatePin = Math.floor(1000 + Math.random() * 9000);
         generateNumber.value = generatePin;
         generateNumber.style.color = "black";
+        pinText();
     })
 
 
@@ -113,31 +126,35 @@
 
         if(generateNumber.value == inputNumber.value){
            
-            document.getElementById("submitSuccessful").style.display = "block";
-            document.getElementById("tryingNumberCount").style.display = "none";
-            document.getElementById("submitFailed").style.display = "none";
-
+            submitSuccessful.style.display = "block";
+            failedCounting.style.display = "none";
         }
+
+
         else if( inputNumber.value.length < 4 || inputNumber.value.length > 4 ){
             alert("Enter four digit number");        
         }
+
+
         else if(generateNumber.value != inputNumber.value && decreaseNum.innerText > 0){
             let decreaseNum =parseInt( document.getElementById("decreaseNum").innerText);
             let newDecreaseNum = decreaseNum - 1;
             document.getElementById("decreaseNum").innerText =newDecreaseNum + " "; 
 
-            document.getElementById("submitSuccessful").style.display = "none";
-            document.getElementById("submitFailed").style.display = "block";
-            document.getElementById("tryingNumberCount").style.display = "block";
+            submitFailed.style.display = "block";
+            failedCounting.style.display = "block";
         }
+
+
         else if(decreaseNum.innerText >= 0){
             document.getElementById("submitBtn").disabled = true;
-            document.getElementById("tryingNumberCount").style.display = "none";
-            document.getElementById("finishTry").style.display = "block";
+            failedCounting.style.display = "none";
+            finishedTrying.style.display = "block";
+            submitFailed.style.display = "block";
         }
         else{
-            document.getElementById("tryingNumberCount").style.display = "none";
-            document.getElementById("finishTry").style.display = "block";
+            failedCounting.style.display = "none";
+            finishedTrying.style.display = "block";
             }
     })
 
