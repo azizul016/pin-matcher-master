@@ -64,15 +64,7 @@
 
    
 <script>
-
-    
-
-
-
-
-
-
-
+    //inputNumber part start
     function setNumber(id){
         document.getElementById(id).addEventListener("click", function(){
             document.getElementById("inputNumber").value += document.getElementById(id).innerText;
@@ -90,7 +82,7 @@
       setNumber("eight");
       setNumber("nine");
 
-    //backspace function.
+    //backspace function
     function backspaceBtn(){
         calc.display.value = calc.display.value.slice(0, calc.display.value.length - 1);
     }
@@ -116,7 +108,7 @@
     })
 
 
-    //main part start
+    //conditional part start
     document.getElementById("submitBtn").addEventListener("click", function(){
 
         if(generateNumber.value == inputNumber.value){
@@ -137,6 +129,11 @@
             document.getElementById("submitSuccessful").style.display = "none";
             document.getElementById("submitFailed").style.display = "block";
             document.getElementById("tryingNumberCount").style.display = "block";
+        }
+        else if(decreaseNum.innerText >= 0){
+            document.getElementById("submitBtn").disabled = true;
+            document.getElementById("tryingNumberCount").style.display = "none";
+            document.getElementById("finishTry").style.display = "block";
         }
         else{
             document.getElementById("tryingNumberCount").style.display = "none";
