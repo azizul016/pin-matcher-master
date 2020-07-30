@@ -65,6 +65,14 @@
    
 <script>
 
+    
+
+
+
+
+
+
+
     function setNumber(id){
         document.getElementById(id).addEventListener("click", function(){
             document.getElementById("inputNumber").value += document.getElementById(id).innerText;
@@ -117,6 +125,9 @@
             document.getElementById("tryingNumberCount").style.display = "none";
             document.getElementById("submitFailed").style.display = "none";
 
+        }
+        else if( inputNumber.value.length < 4 || inputNumber.value.length > 4 ){
+            alert("Enter four digit number");        
         }
         else if(generateNumber.value != inputNumber.value && decreaseNum.innerText > 0){
             let decreaseNum =parseInt( document.getElementById("decreaseNum").innerText);
