@@ -69,9 +69,10 @@
     let generateNumber = document.getElementById("generateNumber");
     let inputNumber = document.getElementById("inputNumber");
     let submitSuccessful = document.getElementById("submitSuccessful");
+    let submitFailed = document.getElementById("submitFailed");
     let failedCounting = document.getElementById("failedCounting");
     let finishedTrying = document.getElementById("finishedTrying");
-    let submitFailed = document.getElementById("submitFailed");
+    
 
     //common function uses
     function pinText(){
@@ -139,7 +140,7 @@
         else if(generateNumber.value != inputNumber.value && decreaseNum.innerText > 0){
             let decreaseNum =parseInt( document.getElementById("decreaseNum").innerText);
             let newDecreaseNum = decreaseNum - 1;
-            document.getElementById("decreaseNum").innerText =newDecreaseNum + " "; 
+            document.getElementById("decreaseNum").innerText = newDecreaseNum + " "; 
 
             submitFailed.style.display = "block";
             failedCounting.style.display = "block";
@@ -152,10 +153,7 @@
             finishedTrying.style.display = "block";
             submitFailed.style.display = "block";
         }
-        else{
-            failedCounting.style.display = "none";
-            finishedTrying.style.display = "block";
-            }
+      
     })
 
 </script>
